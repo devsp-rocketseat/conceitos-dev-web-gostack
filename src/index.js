@@ -20,6 +20,14 @@ const app = express()
     qual é o recurso que o user esta tentando acessar. 
 */
 
+/*
+   Tipos de parâmetros:
+
+   Query Params: Filtros e paginação
+   Route Params: Identificar recursos (Atualizar/Deletar)
+   Request Body: Conteúdo na hora de criar ou editar um recurso (JSON)
+*/
+
 
 // Criando as rotas
 app.get('/', (request, response) => {
@@ -27,6 +35,10 @@ app.get('/', (request, response) => {
 })
 
 app.get('/projects', (request, response) => {
+    const query = request.query
+
+    console.log(query)
+
     return response.json([
         'Projeto 1',
         'Projeto 2',
@@ -42,6 +54,10 @@ app.post('/projects', (request, response) => {
 })
 
 app.put('/projects/:id', (request, response) => {
+    const params = request.params
+
+    console.log(params)
+
     return response.json([
         'Projeto 4',
         'Projeto 2',
