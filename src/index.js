@@ -17,4 +17,4 @@ app.get('/projects', (request, response) => {
 
 
 // Definindo uma porta para o Node
-app.listen(3333)
+app.listen(3333, () => console.log('🚀 Back-end started!'))
