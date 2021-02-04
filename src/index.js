@@ -3,7 +3,7 @@ const express = require('express')
 
 
 // Importando pacote que gera IDs unicos
-const { v4: uuid } = require('uuid');
+const { v4: uuid, validate: isUuid } = require('uuid')
 
 
 // Criando um servidor
@@ -36,9 +36,42 @@ app.use(express.json())
    Request Body: Conteúdo na hora de criar ou editar um recurso (JSON)
 */
 
+/*
+    Middleware:
+
+    Interceptador de requisições que pode interromper totalmente a requisição ou alterar dados da requisição.
+*/
+
 
 // Emulando um banco de dados para praticar
 const projects = []
+
+
+// Criando um Middleware
+function logRequests(request, response, next) {
+    const { method, url } = request
+
+    const logLabel = `[${method}] ${url}`
+
+    console.log(logLabel)
+
+    next()
+}
+
+function validateProjectId(request, response, next) {
+    const { id } = request.params
+
+    if (!isUuid(id)) {
+        return response.status(400).json({ error: 'Invalid project ID.' })
+    }
+
+    return next()
+}
+
+
+// Setando os Middlewares para ser executado antes de outras rotas
+app.use(logRequests)
+app.use('/projects/:id', validateProjectId)
 
 
 // Criando as rotas
