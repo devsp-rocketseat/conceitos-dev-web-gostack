@@ -2,12 +2,20 @@
 const express = require('express')
 
 
+// Importando Cors
+const cors = require('cors')
+
+
 // Importando pacote que gera IDs unicos
 const { v4: uuid, validate: isUuid } = require('uuid')
 
 
 // Criando um servidor
 const app = express()
+
+
+// Liberando o cors
+app.use(cors())
 
 
 // Configurando o express para receber JSON nas requisições
